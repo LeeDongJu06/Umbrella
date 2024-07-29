@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>대여 버튼</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+    <button id="rentButton">대여</button>
+    <script>
+        document.getElementById('rentButton').addEventListener('click', function() {
+            const name = prompt('이름을 입력해 주세요');
+            if (name) {
+                fetch('/.netlify/functions/save-name', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ name })
+                })
+                .then(response => response.text())
+                .then(data => alert(data))
+                .catch(error => alert('문제가 발생했습니다.'));
+            }
+        });
+    </script>
+</body>
+</html>
