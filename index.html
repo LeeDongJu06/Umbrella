@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client-Side App</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Client-Side App</h1>
+    
+    <div id="auth">
+        <h2>Admin Authentication</h2>
+        <input type="password" id="password" placeholder="Enter password" />
+        <button onclick="checkPassword()">Submit</button>
+        <p id="auth-result" class="hidden"></p>
+    </div>
+    
+    <div id="user-management" class="hidden">
+        <h2>Add User</h2>
+        <input type="text" id="studentId" placeholder="Student ID" />
+        <input type="text" id="name" placeholder="Name" />
+        <button onclick="addUser()">Add User</button>
+        <p id="user-result"></p>
+    </div>
+
+    <h2>User List</h2>
+    <ul id="user-list"></ul>
+
+    <script src="script.js"></script>
+</body>
+</html>
