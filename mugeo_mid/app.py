@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # CSV 파일 경로 설정
 CSV_FILE = 'names.csv'
-ADMIN_PASSWORD = 'sinilsinil'  # 관리자 비밀번호 설정
+ADMIN_PASSWORD = 'mugeomugeo'  # 관리자 비밀번호 설정
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
