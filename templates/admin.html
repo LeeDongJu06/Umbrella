@@ -1,0 +1,17 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>관리자 페이지</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+  <h1>우산 대여자 명단</h1>
+  <div class="container">
+    {{ table | safe }}
+    <br>
+    <a class="btn btn-primary" href="/download_csv">CSV 파일 다운로드</a>
+  </div>
+  <button class="btn btn-secondary" onclick="location.href='/'">홈으로</button>
+</body>
+</html>
