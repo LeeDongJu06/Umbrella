@@ -64,11 +64,13 @@
 <body>
   <a id="admin-button" href="#" onclick="handleAdminButtonClick()">관리자 페이지</a>
   <div class="container">
-    <h1>무거중학교 <br>스마트 우산 대여 사이트</h1>
+    <h1>신일중학교 <br>스마트 우산 대여 사이트</h1>
     <!-- 이미지 삽입 -->
     <img id="info-image" src="https://github.com/user-attachments/assets/d8a1565f-073d-45eb-8f49-45b20112d751" alt="정보 이미지">
     <br>
     <button id="main-button" onclick="handleButtonClick()">대여</button>
+    <br><br>
+    <h4>Made by 대현고등학교 이동주</h4>
   </div>
   <script>
     async function handleButtonClick() {
@@ -77,7 +79,7 @@
         const name = prompt("이름을 입력하세요:", "홍길동");
         if (name) {
           // 알림 창 생성
-          const message = `4층 교무실 옆 학년협의실로 우산을 반납해야 합니다. 반납하지 않거나, 해당 내용에 동의하지 않을 시 우산 대여가 불가합니다.`;
+          const message = `4층 학생회실로 우산을 반납해야 합니다. 반납하지 않거나, 해당 내용에 동의하지 않을 시 우산 대여가 불가합니다.`;
           const userConfirmed = confirm(message);
 
           if (userConfirmed) {

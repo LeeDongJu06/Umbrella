@@ -70,6 +70,8 @@
 
     <br>
     <button id="main-button" onclick="handleButtonClick()">대여</button>
+    <br><br>
+    <h4>Made by 대현고등학교 이동주</h4>
   </div>
   <script>
     async function handleButtonClick() {
@@ -78,7 +80,7 @@
         const name = prompt("이름을 입력하세요:", "홍길동");
         if (name) {
           // 알림 창 생성
-          const message = `3일 내로 4층 학생회실로 우산을 반납해야 합니다. 반납하지 않거나, 해당 내용에 동의하지 않을 시 우산 대여가 불가합니다.`;
+          const message = `3일 내로 3층 WeClass옆 회의실로 우산을 반납해야 합니다. 반납하지 않거나, 해당 내용에 동의하지 않을 시 우산 대여가 불가합니다.`;
           const userConfirmed = confirm(message);
 
           if (userConfirmed) {
