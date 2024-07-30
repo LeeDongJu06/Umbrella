@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 # CSV 파일 경로 설정
 CSV_FILE = 'names.csv'
-ADMIN_PASSWORD = '123'  # 관리자 비밀번호 설정
+ADMIN_PASSWORD = 'sinilsinil'  # 관리자 비밀번호 설정
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -40,16 +40,16 @@ def admin():
             df = pd.read_csv(CSV_FILE)
             if df.empty:
                 raise pd.errors.EmptyDataError
-            table_html = df.to_html(index=False, classes='table table-striped')
+            rows = df.to_dict(orient='records')
         except pd.errors.EmptyDataError:
-            table_html = "저장된 데이터가 없습니다."
+            rows = []
         except Exception as e:
             print(f"Exception occurred while reading CSV: {e}")
-            table_html = "CSV 파일을 읽는 중 오류가 발생했습니다."
+            rows = []
     else:
-        table_html = "CSV 파일을 찾을 수 없습니다."
-    
-    return render_template('admin.html', table=table_html)
+        rows = []
+
+    return render_template('admin.html', rows=rows)
 
 @app.route('/check_password', methods=['POST'])
 def check_password():
@@ -80,17 +80,6 @@ def check_existing():
             return jsonify(exists=False, error="Error checking existing entry"), 500
     else:
         return jsonify(exists=False, error="CSV file not found"), 500
-
-@app.route('/download_csv')
-def download_csv():
-    if os.path.exists(CSV_FILE):
-        try:
-            return send_file(CSV_FILE, as_attachment=True)
-        except Exception as e:
-            print(f"Error sending file: {e}")
-            return "Error occurred while downloading the file.", 500
-    else:
-        return "CSV file not found.", 404
 
 def check_existing_entry(name, student_id):
     """Check if a record with the given name and student_id exists in the CSV file."""
@@ -131,6 +120,32 @@ def save_name_to_csv(name, student_id):
     except Exception as e:
         print(f"Error saving to CSV: {e}")
         return False
+
+@app.route('/download_csv')
+def download_csv():
+    if os.path.exists(CSV_FILE):
+        return send_file(CSV_FILE, as_attachment=True)
+    return "CSV 파일이 존재하지 않습니다.", 404
+
+@app.route('/delete_row', methods=['POST'])
+def delete_row():
+    student_id = request.form.get('student_id')
+    name = request.form.get('name')
+
+    if os.path.exists(CSV_FILE):
+        try:
+            df = pd.read_csv(CSV_FILE)
+            if '학번' in df.columns and '이름' in df.columns:
+                # 특정 행 삭제
+                df = df[~((df['학번'].astype(str) == str(student_id)) & (df['이름'] == name))]
+                df.to_csv(CSV_FILE, index=False, encoding='utf-8-sig')
+                return '', 204
+            else:
+                return "CSV 파일의 열이 올바르지 않습니다.", 500
+        except Exception as e:
+            print(f"Exception occurred while deleting row: {e}")
+            return "서버 오류", 500
+    return "CSV 파일이 존재하지 않습니다.", 404
 
 if __name__ == '__main__':
     app.run(debug=True)
